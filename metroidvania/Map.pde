@@ -45,6 +45,20 @@ class Map
     }
   }
   
+  void drawShadow()
+  {
+  for(int i= 0; i < xSize; i++)
+    {
+      for(int j = 0; j < ySize; j++ )
+      {
+        if(!blocks[i][j].background)
+        {
+          blocks[i][j].dark();
+        }
+      }
+    }
+  }
+  
     void CheckMapCollision()
   {
         

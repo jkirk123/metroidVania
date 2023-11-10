@@ -8,6 +8,8 @@ class Block
   float size;
   boolean pathable;
   boolean background;
+  boolean seen ;
+  
   // mathods
   public Block(char t, float x, float y)
   {
@@ -43,6 +45,34 @@ class Block
     
     //return BlockType.NONE;
   }
+  void dark()
+  {
+  float X = blockX+ xOffset;
+  float Y = blockY+ yOffset;
+  
+  if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist && !seen)
+    {
+    image(darkness, X, Y);
+    //return;
+    }
+    else if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist && dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) < scrollXDist*4 )
+    {
+    fill(0,80);
+    square(X, Y,blockSize);
+    
+    }
+    else if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist*3 )
+    {
+    fill(0,95);
+    square(X, Y,blockSize);
+    seen = true;
+    //return;
+    }
+    else
+    {
+    seen = true;
+    }
+  }
 
   void drawMe()
   {
@@ -58,6 +88,9 @@ class Block
       return;
       }
     }
+    
+    
+    
     //image(blockINone, blockX, blockY);
     if(type == BlockType.NONE)
     {
@@ -122,11 +155,10 @@ class Block
     image(blockISPIKE,X,Y);
     }
     
-    if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > 400)
-    {
-    fill(0,99);
-    square(X,Y, blockSize);
-    }
+    
+    
+    
+    
 
 
   }

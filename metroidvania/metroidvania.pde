@@ -30,6 +30,7 @@ ArrayList<Portal> doors = new ArrayList<Portal>();
 ArrayList<Key> Keys = new ArrayList<Key>();
 ArrayList<Corpse> Morgue = new ArrayList<Corpse>();
 PImage Keyi;
+PImage darkness;
 //String testMap = ""; //for testing
 //Map m;               //for testing
 //int mapX;            //for testing
@@ -52,14 +53,16 @@ PImage playerIFalling;
 PImage playerIFallingL;
 int currentMap = 0;
 //scrolling data
-int scrollXDist = 100; //default distances
+int scrollXDist = 200; //default distances
 int scrollYDist = 100; //changes based on window size in setup()
 float xOffset = 0;
 float yOffset = 0;
 
 void setup()
 {
-
+  darkness = loadImage("darkness-1.png.png");
+  darkness.resize(int(blockSize), 0);
+  
   blockI = loadImage("block.PNG");
   blockI.resize(int(blockSize), 0);
 
@@ -150,6 +153,8 @@ void draw()
 
   for ( Corpse C : Morgue)
     C.drawMe();
+    
+    world.get(currentMap).drawShadow();
   
 // println("keys " + p.keyChain);
 }
