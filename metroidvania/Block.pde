@@ -8,7 +8,9 @@ class Block
   float size;
   boolean pathable;
   boolean background;
-  boolean seen ;
+  boolean seen = false;
+  boolean Glow = false;
+  int brightness;
   
   // mathods
   public Block(char t, float x, float y)
@@ -18,8 +20,10 @@ class Block
     size = blockSize;
 
     pathable = true;
-
+    Glow = false;
     type = setType(t);
+    brightness = 100;
+    
   }
 
   private BlockType setType(char t)
@@ -30,49 +34,46 @@ class Block
       case '#': pathable = false; return BlockType.WALL1;
       case '[': pathable = false; return BlockType.WALL2;
       case ']': pathable = false; return BlockType.WALL3;
-      case '-': return BlockType.THIN;
-      case 'D': return BlockType.DOOR;
-      case 'F': return BlockType.FROGSTATUE;
-      case 'L': return BlockType.LADDER;
-      case '!': return BlockType.LANTERN;
-      case 'T': return BlockType.TREE;
-      case '.': return BlockType.HOLE;
-      case '^': return BlockType.SPIKE;
-      case 'X': return BlockType.FIRE;
+      case '-': Glow = false; return BlockType.THIN;
+      case 'D': Glow = false;return BlockType.DOOR;
+      case 'F': Glow = false;return BlockType.FROGSTATUE;
+      case 'L': Glow = false;return BlockType.LADDER;
+      case '!': Glow = true; return BlockType.LANTERN;
+      case 'T': Glow = false;return BlockType.TREE;
+      case '.': Glow = false;return BlockType.HOLE;
+      case '^': Glow = false;return BlockType.SPIKE;
+      case 'X': Glow = true; return BlockType.FIRE;
       default: return BlockType.NONE;
     }
     
     
     //return BlockType.NONE;
   }
-  void dark()
+  void setDark(float lightX, float lightY)
   {
   float X = blockX+ xOffset;
   float Y = blockY+ yOffset;
   
-  if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist && !seen)
+  brightness = int(dist(lightX+xOffset,lightY+yOffset,X,Y)/blockSize);
+  //return;
+   if(brightness > scrollXDist/blockSize)
     {
-    image(darkness, X, Y);
-    //return;
+      image(darkness, X, Y);
+      //return;
     }
-    else if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist && dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) < scrollXDist*4 )
+    else if(brightness > (scrollXDist/blockSize)/1.5  )
     {
-    fill(0,80);
-    square(X, Y,blockSize);
+      fill(0,95);
+      square(X, Y,blockSize);
     
     }
-    else if(dist(p.playerX+xOffset,p.playerY+yOffset,X,Y) > scrollXDist*3 )
+    else if(brightness > (scrollXDist/blockSize)/3  )
     {
-    fill(0,95);
+    fill(0,50);
     square(X, Y,blockSize);
-    seen = true;
-    //return;
-    }
-    else
-    {
-    seen = true;
     }
   }
+  
 
   void drawMe()
   {
@@ -145,6 +146,7 @@ class Block
     {
     image(blockINone, X, Y);
     image(blockILANTERN,X, Y);
+    
     }
     if(type == BlockType.SPIKE)
     {
@@ -155,11 +157,6 @@ class Block
     image(blockISPIKE,X,Y);
     }
     
-    
-    
-    
-    
-
 
   }
   //gettera
@@ -171,9 +168,10 @@ class Block
   float yMiddle() {return blockY+size/2;}//returns middle on y axis
 }
 
+
 public enum BlockType
 {
 
   WALL1, WALL2, WALL3, THIN, DOOR, NONE,
-  FROGSTATUE, LADDER, LANTERN, TREE, HOLE, SPIKE, FIRE
+  FROGSTATUE, LADDER, LANTERN, TREE, HOLE, SPIKE, FIRE,BadDude
 }

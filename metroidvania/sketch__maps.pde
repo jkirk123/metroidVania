@@ -7,7 +7,7 @@
    
    println("Working on map 1...");
   mapString += "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[["; mapX = mapString.length();
-  mapString += "[                              ####["; 
+  mapString += "[                         !    ####["; 
   mapString += "[[[[[[[[[[[[[[[[[[[[[[[[[        ##["; 
   mapString += "[                                  ["; 
   mapString += "[            [                     ["; 

@@ -41,22 +41,29 @@ class Map
         {
           blocks[i][j].drawMe();
         }
+        
       }
     }
   }
-  
+         
   void drawShadow()
   {
   for(int i= 0; i < xSize; i++)
     {
       for(int j = 0; j < ySize; j++ )
       {
-        if(!blocks[i][j].background)
+        
+        //blocks[i][j].setDark(p.playerX,p.playerY);
+        
+        
+        if(blocks[i][j].Glow )
         {
-          blocks[i][j].dark();
+         blocks[i][j].setDark(blocks[i][j].blockX, blocks[i][j].blockY);
         }
+        blocks[i][j].setDark(p.playerX,p.playerY);
+        
       }
-    }
+     }
   }
   
     void CheckMapCollision()

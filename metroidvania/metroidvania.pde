@@ -58,10 +58,14 @@ int scrollYDist = 100; //changes based on window size in setup()
 float xOffset = 0;
 float yOffset = 0;
 
+//enemy dataat
+ArrayList<Shot> arsenal = new ArrayList<Shot>();
+
 void setup()
 {
   darkness = loadImage("darkness-1.png.png");
   darkness.resize(int(blockSize), 0);
+  
   
   blockI = loadImage("block.PNG");
   blockI.resize(int(blockSize), 0);
@@ -154,10 +158,13 @@ void draw()
   for ( Corpse C : Morgue)
     C.drawMe();
     
+  for ( Shot S : arsenal)
+    S.moveAndDraw();
+    
     world.get(currentMap).drawShadow();
   
 // println("keys " + p.keyChain);
-}
+     }
 
 void useDoor()
 {
@@ -208,8 +215,7 @@ void keyPressed()
 {
   println("onGround " + p.onGround);
   // does the jumping
-  if (!p.dead)
-  {
+  
     if (key == ' ' )
     {
       println("onGround " + p.onGround);
@@ -234,12 +240,12 @@ void keyPressed()
     {
       useDoor();
     }
-  }
+  
 
   if (key == 'r')
   {
     
-    p.dead = false;
+    p.checkForDeath(true);
   }
 }
 
@@ -248,4 +254,9 @@ void keyReleased()
   println("released");
   //if(p.onGround)
   p.moving =  false;
+}
+
+void mousePressed()
+{
+ arsenal.add( new Shot(50,50,5,10)); 
 }

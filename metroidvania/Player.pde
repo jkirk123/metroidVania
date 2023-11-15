@@ -11,7 +11,7 @@ class Player
   boolean moving = false;
   boolean left;
   boolean doublej = false;
-  boolean dead = false;
+  //boolean dead = false;
   int keyChain = 0;
   
   
@@ -79,11 +79,10 @@ class Player
 
   void movePlayer()
   {
-    if(!dead)
-    {
+    
     playerX += xSpd; // applies speed
     playerY += ySpd;
-    }
+    
     
     if(moving)
     {
@@ -139,16 +138,16 @@ class Player
     //if(onGround && !dead)
     //image(playerI,left() + xOffset, top() + yOffset);
     
-     if( ySpd > 5 && !onGround && left&& !dead)
+     if( ySpd > 5 && !onGround && left)
     image(playerIFalling,left() + xOffset, top() + yOffset);
     
-    else if( ySpd > 5 && !onGround && !left&& !dead)
+    else if( ySpd > 5 && !onGround && !left)
     image(playerIFallingL,left() + xOffset, top() + yOffset);
     
-    else if( !left && !dead)
+    else if( !left )
     image(playerILeft,left() + xOffset, top() + yOffset);
     
-    else if( left  && !dead)
+    else if( left  )
     image(playerIRight,left() + xOffset, top() + yOffset);
     //else if(dead && left)
     //image(playerIDeadL,left() + xOffset, top() + yOffset);
@@ -165,8 +164,8 @@ class Player
     {
     case SPIKE:
     case FIRE:
-      dead = true;
-        
+    case BadDude:
+      
       Morgue.add(new Corpse(left(),top(),left,0,currentMap)); 
       playerX = respawnX;
       playerY = respawnY;
@@ -176,11 +175,23 @@ class Player
        println("age corpse " + C.age);
       }
       break;
-      
-      
-      
-      
+
     }
+  }
+  void checkForDeath(boolean die)
+  {
+    
+      Morgue.add(new Corpse(left(),top(),left,0,currentMap)); 
+      playerX = respawnX;
+      playerY = respawnY;
+      for( Corpse C: Morgue)
+      {
+       C.age+=1;
+       println("age corpse " + C.age);
+      }
+     ;
+
+    
   }
 
   void jump()
@@ -338,8 +349,7 @@ class Player
   //************************//
   public void checkForScroll()
   {
-    if(dead)
-    return;
+    
     
     if( playerY+yOffset < (scrollYDist) ) //screen up
       yOffset -= playerY+yOffset-scrollYDist;
