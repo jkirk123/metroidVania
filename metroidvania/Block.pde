@@ -10,21 +10,40 @@ class Block
   boolean background;
   boolean seen = false;
   boolean Glow = false;
+  
   int brightness;
+  //badguy data
+  int cooldown=0;
+  int map;
+  int range = 500;
+  int waitTime;
+  int shotSpeed;
+  int shotDur;
   
   // mathods
-  public Block(char t, float x, float y)
+  public Block(char t, float x, float y, int m)
   {
     blockX = x;
     blockY = y;
     size = blockSize;
-
+     map = m;
     pathable = true;
     Glow = false;
     type = setType(t);
-    brightness = 100;
+    brightness = 0;
     
   }
+  
+  void tryToShoot()
+   {
+     //timer distance map
+     if(currentMap == map && dist(blockX,blockY,p.playerX,p.playerY) < range && millis() > cooldown)
+     {
+       cooldown = millis() + waitTime;
+       arsenal.add( new Shot(xMiddle(),yMiddle(),shotSpeed,shotDur)); 
+     }
+     
+   }
 
   private BlockType setType(char t)
   {
@@ -34,15 +53,16 @@ class Block
       case '#': pathable = false; return BlockType.WALL1;
       case '[': pathable = false; return BlockType.WALL2;
       case ']': pathable = false; return BlockType.WALL3;
-      case '-': Glow = false; return BlockType.THIN;
-      case 'D': Glow = false;return BlockType.DOOR;
-      case 'F': Glow = false;return BlockType.FROGSTATUE;
-      case 'L': Glow = false;return BlockType.LADDER;
+      case '-': return BlockType.THIN;
+      case 'D': return BlockType.DOOR;
+      case 'F': return BlockType.FROGSTATUE;
+      case 'L': return BlockType.LADDER;
       case '!': Glow = true; return BlockType.LANTERN;
-      case 'T': Glow = false;return BlockType.TREE;
-      case '.': Glow = false;return BlockType.HOLE;
-      case '^': Glow = false;return BlockType.SPIKE;
+      case 'T': return BlockType.TREE;
+      case '.': return BlockType.HOLE;
+      case '^': return BlockType.SPIKE;
       case 'X': Glow = true; return BlockType.FIRE;
+      case 'B': return BlockType.BadGuy;
       default: return BlockType.NONE;
     }
     
@@ -53,25 +73,28 @@ class Block
   {
   float X = blockX+ xOffset;
   float Y = blockY+ yOffset;
-  
+  //if(brightness == -1)
   brightness = int(dist(lightX+xOffset,lightY+yOffset,X,Y)/blockSize);
   //return;
    if(brightness > scrollXDist/blockSize)
     {
       image(darkness, X, Y);
-      //return;
+      
     }
     else if(brightness > (scrollXDist/blockSize)/1.5  )
     {
       fill(0,95);
       square(X, Y,blockSize);
-    
+      
     }
     else if(brightness > (scrollXDist/blockSize)/3  )
     {
-    fill(0,50);
-    square(X, Y,blockSize);
+      fill(0,50);
+      square(X, Y,blockSize);
+      
     }
+    
+    //brightness = 0;
   }
   
 
@@ -79,6 +102,8 @@ class Block
   {
     float X = blockX+ xOffset;
     float Y = blockY+ yOffset;
+    if(type == BlockType.BadGuy)
+    tryToShoot();
     
     for(Portal p: doors)
     {
@@ -146,7 +171,7 @@ class Block
     {
     image(blockINone, X, Y);
     image(blockILANTERN,X, Y);
-    
+    setDark(blockX,blockY);
     }
     if(type == BlockType.SPIKE)
     {
@@ -156,7 +181,10 @@ class Block
         }
     image(blockISPIKE,X,Y);
     }
-    
+    if(type == BlockType.BadGuy)
+    {
+    image(blockISPIKE,X,Y);
+    }
 
   }
   //gettera
@@ -166,6 +194,8 @@ class Block
   float right()   {return blockX+size;}// returns right
   float xMiddle() {return blockX+size/2;}//returns middle on x axis
   float yMiddle() {return blockY+size/2;}//returns middle on y axis
+  
+ 
 }
 
 
@@ -173,5 +203,5 @@ public enum BlockType
 {
 
   WALL1, WALL2, WALL3, THIN, DOOR, NONE,
-  FROGSTATUE, LADDER, LANTERN, TREE, HOLE, SPIKE, FIRE,BadDude
+  FROGSTATUE, LADDER, LANTERN, TREE, HOLE, SPIKE, FIRE,BadGuy
 }

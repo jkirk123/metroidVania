@@ -21,7 +21,7 @@ class Map
       for(int j = 0; j< xSize; j++)
       {
         //println("j = " + j);
-        blocks[j][i] = new Block( blockMap.charAt((i*xSize)+j), j*blockSize, i*blockSize );
+        blocks[j][i] = new Block( blockMap.charAt((i*xSize)+j), j*blockSize, i*blockSize, index );
       }
     }
   }
@@ -53,16 +53,16 @@ class Map
       for(int j = 0; j < ySize; j++ )
       {
         
-        //blocks[i][j].setDark(p.playerX,p.playerY);
-        
-        
         if(blocks[i][j].Glow )
         {
          blocks[i][j].setDark(blocks[i][j].blockX, blocks[i][j].blockY);
+         
         }
-        blocks[i][j].setDark(p.playerX,p.playerY);
+        
+        //blocks[i][j].setDark(p.playerX,p.playerY);
         
       }
+      
      }
   }
   

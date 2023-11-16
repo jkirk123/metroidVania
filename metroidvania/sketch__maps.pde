@@ -16,7 +16,7 @@
   mapString += "#       .....                      ["; 
   mapString += "[         .....                    #"; 
   mapString += "[ [##[                             ["; 
-  mapString += "#     [   ###############^^#       ["; 
+  mapString += "#     [   ###############^^#  B    ["; 
   mapString += "[            ......      ######### #";   
   mapString += "#      [      ........   #         ["; 
   mapString += "#     [         ......   # #       #"; 

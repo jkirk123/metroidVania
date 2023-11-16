@@ -164,7 +164,7 @@ class Player
     {
     case SPIKE:
     case FIRE:
-    case BadDude:
+    case BadGuy:
       
       Morgue.add(new Corpse(left(),top(),left,0,currentMap)); 
       playerX = respawnX;

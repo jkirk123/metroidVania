@@ -158,9 +158,14 @@ void draw()
   for ( Corpse C : Morgue)
     C.drawMe();
     
-  for ( Shot S : arsenal)
-    S.moveAndDraw();
-    
+  for (int i = 0; i < arsenal.size(); i++)
+  {
+    arsenal.get(i).moveAndDraw();
+    if(arsenal.get(i).ShotOver)
+    {
+    arsenal.remove(i);
+    }
+  } 
     world.get(currentMap).drawShadow();
   
 // println("keys " + p.keyChain);
@@ -200,7 +205,7 @@ void useDoor()
         }
       }
       
-
+      arsenal.clear();
       break;
     }
   }
