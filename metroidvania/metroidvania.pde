@@ -265,6 +265,7 @@ void keyPressed()
   {
 
     p.checkForDeath(true);
+    saveGame();
   }
 }
 
@@ -283,7 +284,15 @@ void mousePressed()
 void saveGame()
 {
 try
-{}
+{
+PrintWriter pw = createWriter( "save.txt");
+
+pw.println("NOOOOOoo");
+
+pw.flush();
+pw.close();
+
+}
 catch (Exception e)
 {
 println("woopsies");
