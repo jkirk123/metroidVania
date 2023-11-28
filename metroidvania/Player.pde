@@ -413,6 +413,10 @@ int Map;
  {
    if(Map != currentMap)
    return;
+   if(int(dist(p.playerX+xOffset,p.playerY+yOffset,xPos + xOffset,yPos+ yOffset)/blockSize) > scrollXDist/blockSize)
+   {
+     return;
+   }
    
    if(left&& age == 1)
    image(playerIDeadL,xPos + xOffset, yPos + yOffset);

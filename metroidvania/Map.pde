@@ -53,13 +53,13 @@ class Map
       for(int j = 0; j < ySize; j++ )
       {
         
-        if(blocks[i][j].Glow )
-        {
-         blocks[i][j].setDark(blocks[i][j].blockX, blocks[i][j].blockY);
+        //if(blocks[i][j].Glow )
+        //{
+        // blocks[i][j].setDark(blocks[i][j].blockX, blocks[i][j].blockY);
          
-        }
+        //}
         
-        //blocks[i][j].setDark(p.playerX,p.playerY);
+       blocks[i][j].setDark(p.playerX,p.playerY);
         
       }
       

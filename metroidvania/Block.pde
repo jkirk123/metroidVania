@@ -78,7 +78,8 @@ class Block
   //return;
    if(brightness > scrollXDist/blockSize)
     {
-      image(darkness, X, Y);
+      return;
+      //image(darkness, X, Y);
       
     }
     else if(brightness > (scrollXDist/blockSize)/1.5  )
@@ -113,6 +114,10 @@ class Block
       
       return;
       }
+    }
+    if(brightness > scrollXDist/blockSize)
+    {
+      return;
     }
     
     

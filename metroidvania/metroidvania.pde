@@ -1,7 +1,9 @@
 //james kirk
 //metroidvania
+import processing.sound.*;
+// block
 
-// block data
+
 PImage blockI;
 
 PImage blockI2;
@@ -61,12 +63,20 @@ float yOffset = 0;
 //enemy dataat
 ArrayList<Shot> arsenal = new ArrayList<Shot>();
 
+//sound
+SoundFile DoorSound;
+//cutting bread(open door)
+//
+
+
 void setup()
 {
+  DoorSound = new SoundFile(this, "door.wav");
+
   darkness = loadImage("darkness-1.png.png");
   darkness.resize(int(blockSize), 0);
-  
-  
+
+
   blockI = loadImage("block.PNG");
   blockI.resize(int(blockSize), 0);
 
@@ -85,7 +95,7 @@ void setup()
   blockILADDER = loadImage("ladder-1.png.png");
   blockILADDER.resize(int(blockSize), 0);
 
-  blockILANTERN = loadImage("fly lantern-1.png.png");
+  blockILANTERN = loadImage("fly lantern-1.png");
   blockILANTERN.resize(int(blockSize), 0);
 
   blockITREE = loadImage("tree.png");
@@ -102,11 +112,12 @@ void setup()
 
   Keyi = loadImage("Key-1.png.png");
   Keyi.resize(int(blockSize), 0);
-  
+
   DoorLocked = loadImage("doorLocked.png");
   DoorLocked.resize(int(blockSize), 0);
 
-  BackgroundI = loadImage("New Piskel-1.png (1).png");
+  //BackgroundI = loadImage("New Piskel-1.png (1).png");
+  BackgroundI = loadImage("darkness.png");
   BackgroundI.resize(width, height);
 
 
@@ -140,11 +151,13 @@ void draw()
 
   world.get(currentMap).drawMap();
   world.get(currentMap).CheckMapCollision();
+  /*
   fill(0);
-  rect(world.get(currentMap).xSize*blockSize, 0, xOffset, height);
-  rect(0, 0, xOffset, height);
-  rect(0, 0, width, yOffset);
-  rect(0, world.get(currentMap).ySize*blockSize, width, yOffset);
+   rect(world.get(currentMap).xSize*blockSize, 0, xOffset, height);
+   rect(0, 0, xOffset, height);
+   rect(0, 0, width, yOffset);
+   rect(0, world.get(currentMap).ySize*blockSize, width, yOffset);
+   */
   //m.drawMap();
   //m.CheckMapCollision();
   //text("Current Block: " + p.currentBlockType().type,100,900);
@@ -157,19 +170,20 @@ void draw()
 
   for ( Corpse C : Morgue)
     C.drawMe();
-    
+
   for (int i = 0; i < arsenal.size(); i++)
   {
     arsenal.get(i).moveAndDraw();
-    if(arsenal.get(i).ShotOver)
+    if (arsenal.get(i).ShotOver)
     {
-    arsenal.remove(i);
+      arsenal.remove(i);
     }
-  } 
-    world.get(currentMap).drawShadow();
-  
-// println("keys " + p.keyChain);
-     }
+  }
+  world.get(currentMap).drawShadow();
+
+  // println("keys " + p.keyChain);
+}
+
 
 void useDoor()
 {
@@ -177,19 +191,19 @@ void useDoor()
   {
     if ( currentMap == d.originMap &&  int(p.playerX/blockSize) == d.originX &&  int(p.playerY/blockSize) == d.originY  )
     {
-      if(d.locked)
+      if (d.locked)
       {
-        if(p.keyChain> 0)
+        if (p.keyChain> 0)
         {
           p.keyChain--;
           d.locked = false;
         }
         return;
-        
       }
       currentMap = d.destMap;
       p.playerX = p.respawnX = int(d.destX*blockSize);
       p.playerY = p.respawnY = int(d.destY*blockSize);
+      DoorSound.play();
       if (d.destMap == 5)
       {
         scrollXDist = 500;
@@ -204,7 +218,7 @@ void useDoor()
           k.grabbed = false;
         }
       }
-      
+
       arsenal.clear();
       break;
     }
@@ -213,43 +227,43 @@ void useDoor()
 
 void lockDoor()
 {
-    doors.get( doors.size()-1).locked = true;
-  }
+  doors.get( doors.size()-1).locked = true;
+}
 
 void keyPressed()
 {
   println("onGround " + p.onGround);
   // does the jumping
-  
-    if (key == ' ' )
-    {
-      println("onGround " + p.onGround);
-      p.jump();
-    }
+
+  if (key == ' ' )
+  {
+    println("onGround " + p.onGround);
+    p.jump();
+  }
 
 
 
 
-    if (key == 'd' )
-    {
-      p.moving = true;
-      p.left = true;
-    }
+  if (key == 'd' )
+  {
+    p.moving = true;
+    p.left = true;
+  }
 
-    if (key == 'a' )
-    {
-      p.moving = true;
-      p.left = false;
-    }
-    if (key == 'w')
-    {
-      useDoor();
-    }
-  
+  if (key == 'a' )
+  {
+    p.moving = true;
+    p.left = false;
+  }
+  if (key == 'w')
+  {
+    useDoor();
+  }
+
 
   if (key == 'r')
   {
-    
+
     p.checkForDeath(true);
   }
 }
@@ -263,5 +277,15 @@ void keyReleased()
 
 void mousePressed()
 {
- arsenal.add( new Shot(50,50,5,10)); 
+  
+}
+
+void saveGame()
+{
+try
+{}
+catch (Exception e)
+{
+println("woopsies");
+}
 }
