@@ -16,9 +16,9 @@ class Block
   int cooldown=0;
   int map;
   int range = 500;
-  int waitTime;
-  int shotSpeed;
-  int shotDur;
+  int waitTime = 000;
+  int shotSpeed = 2;
+  int shotDur= 10;
   
   // mathods
   public Block(char t, float x, float y, int m)
@@ -36,6 +36,7 @@ class Block
   
   void tryToShoot()
    {
+     waitTime = p.deathCount * 500;
      //timer distance map
      if(currentMap == map && dist(blockX,blockY,p.playerX,p.playerY) < range && millis() > cooldown)
      {
@@ -188,7 +189,7 @@ class Block
     }
     if(type == BlockType.BadGuy)
     {
-    image(blockISPIKE,X,Y);
+    image(badGuy,X,Y);
     }
 
   }

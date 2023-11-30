@@ -21,8 +21,10 @@ class Shot
   
   timer = t*1000+ millis();
 //Determine speed based on vector subtraction
-  xSpd = x-xPos;
-  ySpd = y-yPos;
+  
+  xSpd = x-p.playerX;
+  ySpd = y-p.playerY;
+  
    
 //Divide speeds based on speed variable
   xSpd /= dist(x,y,p.playerX,p.playerY)/speed;
@@ -33,13 +35,19 @@ class Shot
     
     void moveAndDraw()
     {
-      xPos += xSpd;
-      yPos += ySpd;
+      xPos -= xSpd;
+      yPos -= ySpd;
       
-      fill(100);
-      circle(xPos+xOffset,yPos+yOffset,10);
+      //fill(0,80);
+      //noStroke();
+      image(eyeShot,xPos-25+xOffset,yPos-25+yOffset);
       
       if(millis() > timer)
       ShotOver = true;
+      
+      if(dist(p.playerX,p.playerY,xPos,yPos) <  30)
+      {
+      p.checkForDeath(true);
+      }
     }
 }

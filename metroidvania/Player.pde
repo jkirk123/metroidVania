@@ -13,6 +13,7 @@ class Player
   boolean doublej = false;
   //boolean dead = false;
   int keyChain = 0;
+  int deathCount;
   
   
   float respawnX, respawnY;
@@ -174,6 +175,8 @@ class Player
        C.age+=1;
        println("age corpse " + C.age);
       }
+      deathCount++;
+      saveGame();
       break;
 
     }

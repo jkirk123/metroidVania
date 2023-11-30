@@ -16,9 +16,9 @@
   mapString += "#       .....                      ["; 
   mapString += "[         .....                    #"; 
   mapString += "[ [##[                             ["; 
-  mapString += "#     [   ###############^^#  B    ["; 
-  mapString += "[            ......      ######### #";   
-  mapString += "#      [      ........   #         ["; 
+  mapString += "#     [   ###############^^#       ["; 
+  mapString += "[            ......     B######### #";   
+  mapString += "#   B  [      ........   #         ["; 
   mapString += "#     [         ......   # #       #"; 
   mapString += "[   [              ..    # # #######"; 
   mapString += "#       [                # #       #"; 
@@ -44,7 +44,7 @@
   mapString += "####################################"; mapX = mapString.length();
   mapString += "#!D! L#                            #";
   mapString += "#[[[ L#     ##      ###            #";
-  mapString += "#    L#            #  #            #";
+  mapString += "#    L#            # B#            #";
   mapString += "#    L# [[     #####  # ###        #";
   mapString += "#    L#     #         #            #";
   mapString += "#    L#     #        ##            #";
@@ -53,7 +53,7 @@
   mapString += "#    L#         #     #            #";
   mapString += "#    L#       ###     #           ##";
   mapString += "#    L#               #            #";
-  mapString += "#    L#     #         #            #";
+  mapString += "#    L#B    #         #            #";
   mapString += "#    L#               #            #";
   mapString += "#    L#     ###       #            #";
   mapString += "#    L#               #            #";
@@ -89,16 +89,16 @@
   mapString += "###########################T######T#";
   mapString += "#TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT T#";
   mapString += "#T####################T#############";
-  mapString += "#TTTTTT TT TTTTTTTTTTTTTTTTTTTTTT T#";
+  mapString += "#TTTTTTBTT TTTTTTTTTTTTTTTTTTTTTT T#";
   mapString += "###################T##############T#";
   mapString += "#TTTTTTTTT T TTTTTTTTTTTTTTTTTTTT T#";
   mapString += "#T########T############T############";
-  mapString += "#TTTT TTTTTTTTTTTTTTTTTTTTTTTTTTT T#";
+  mapString += "#TTTT TTTTTTTTTTTTTTTTTTTTTTTTTTTBT#";
   mapString += "#############T####T###############T#";
   mapString += "#TTTT TTTTTTTTTTTTTTTTTTTTTTTTTTT T#";
   mapString += "#T##############T##############T####";
-  mapString += "#TTTT TTTT TTTTTTTTTTTTTTTTTTTTTT T#";
-  mapString += "#TD!TTT TTTTTTTTTTTTTTTTTTTTTTTTT T#";
+  mapString += "#TTTT TTTT TTTTTTTTTTTTTTTTTTTTTTBT#";
+  mapString += "#TD!TTT TTTTTTTTTTTTTTTTTTTTTTTTTBT#";
   mapString += "####################################";
   mapString += "####################################";
   doors.add(new Portal(2, 2, 18, 3, 2, 3));
@@ -115,7 +115,7 @@
   mapString += "#                                  #";
   mapString += "# D     T ^     T   ^    T       D #";
   mapString += "###########################^^#######";
-  mapString += ".........................######.....";
+  mapString += ".........B.........B.....######.....";
   mapString += "................................... ";
   mapString += "...........................         ";
   mapString += ".................                   ";
@@ -144,7 +144,7 @@
   mapString += "#                                                                      #";
   mapString += "# D                                                                  D #";
   mapString += "###########^^###########################################################";
-  mapString += ".........#######........................................................";
+  mapString += ".........#######...............B......................B.................";
   mapString += "........................................................................";
   mapString += "...... .................................................................";
   mapString += "               .........................................................";
@@ -175,7 +175,7 @@
   mapString += "#....   ..........................................................................................................                          L[";
   mapString += "#...  ..................................................................................................                                    L[";
   mapString += "#....  .............................................................                                                                        L[";
-  mapString += "#.... ............................... ..............                                   FFFFFFFFFFFFF#                                       L[";
+  mapString += "#.... ............................... ..............                                   FFFFFFFFFFFFD#                                       L[";
   mapString += "#...............................                                                       ##############                                       L[";
   mapString += "#.......................                                                                           L#                                       L[";
   mapString += "#...................                                                                 ###           L#                                       L[";
@@ -192,7 +192,7 @@
   mapString += "#                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^L#                                       L[";
   mapString += "#               ####  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ###############################                                       L[";
   mapString += "#                         !                                                                         #                                       L[";
-  mapString += "#             ##                                                                                    #                                       L[";
+  mapString += "#             ##    B                b     B                     b                                  #                                       L[";
   mapString += "#                                                                                                   #                                       L[";
   mapString += "#           ##                                                                                      #                                       L[";
   mapString += "#                                                                                                   #                                       L[";
@@ -203,7 +203,7 @@
   mapString += "#     ##                                                         ####################################                                       L[";
   mapString += "#                                                                !       !       ! !         !!    L#                                       L[";
   mapString += "###################################### # # # # # #  #  #  #  #                                     L#                                       L[";
-  mapString += "#                                    # # # # # # #  #  #  #  #D                                    L#                                       L[";
+  mapString += "#                                   B# # # # # # #  #  #  #  #D                                    L#                                       L[";
   mapString += "#                                    # # # # # # #  #  #  #  #[                                    L#                                       L[";
   mapString += "#                                    # # # # # # #  #  #  #  #[[[       ^      ^     ^     ^       L#                                       L[";
   mapString += "#                                    # # # # # # #  #  #  #  ##################################    L#                                    .  L[";
@@ -232,8 +232,15 @@
    doors.add(new Portal(5, 139, 3, 5, 62, 37));
    lockDoor();
     doors.add(new Portal(5, 62, 37, 5,  62, 37));
+    doors.add(new Portal(5, 99, 9, 6,  1, 0));
+    lockDoor();
   world.add(new Map(mapString, mapX, mapIndex) );
   mapIndex++;
   mapString = "";
+  
+  mapString += "#      B                                          B                                                                                          B                                                                                                                                                                                                                B                                                             B            #"; mapX = mapString.length();
+  mapString += "#                                                                                                                                                                                                                                                                                                                                                                                                                                        #";
+  mapString += "#TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT#";
+  mapString += "##########################################################################################################################################################################################################################################################################################################################################################################################################################################";
   
   }

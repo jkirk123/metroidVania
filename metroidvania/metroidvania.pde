@@ -1,4 +1,4 @@
-//james kirk
+ //james kirk
 //metroidvania
 import processing.sound.*;
 // block
@@ -15,6 +15,7 @@ PImage blockILADDER;
 PImage blockILANTERN;
 PImage blockITREE;
 PImage blockINone;
+PImage badGuy;
 
 PImage blockISPIKE;
 PImage blockIFIRE;
@@ -62,6 +63,7 @@ float yOffset = 0;
 
 //enemy dataat
 ArrayList<Shot> arsenal = new ArrayList<Shot>();
+PImage eyeShot;
 
 //sound
 SoundFile DoorSound;
@@ -75,7 +77,8 @@ void setup()
 
   darkness = loadImage("darkness-1.png.png");
   darkness.resize(int(blockSize), 0);
-
+  
+  eyeShot = loadImage("eyeShot.png");
 
   blockI = loadImage("block.PNG");
   blockI.resize(int(blockSize), 0);
@@ -107,6 +110,9 @@ void setup()
   blockINone = loadImage("wallDark.png");
   blockINone.resize(int(blockSize), 0);
 
+  badGuy = loadImage("closed eye-1.png (1).png");
+  badGuy.resize(int(blockSize), 0);
+
   blockISPIKE = loadImage("FloorSpike-1.png.png");
   blockISPIKE.resize(int(blockSize), 0);
 
@@ -133,7 +139,7 @@ void setup()
   println("Creating Player...");
   p = new Player(100, 100, 35, 20);
 
-
+  loadGame();
   //for(int i = 0; i < 300; i++)
   //  blocks.add(new Block('#', int(random(width)), 800));
   //rectMode(CENTER);
@@ -179,6 +185,7 @@ void draw()
       arsenal.remove(i);
     }
   }
+  
   world.get(currentMap).drawShadow();
 
   // println("keys " + p.keyChain);
@@ -287,7 +294,10 @@ try
 {
 PrintWriter pw = createWriter( "save.txt");
 
-pw.println("NOOOOOoo");
+pw.println(currentMap);
+pw.println(p.playerX);
+pw.println(p.playerY);
+
 
 pw.flush();
 pw.close();
@@ -295,6 +305,31 @@ pw.close();
 }
 catch (Exception e)
 {
-println("woopsies");
+println("error while saving");
 }
+}
+
+void loadGame()
+{
+  try
+  {
+   String data[] = loadStrings("save.txt");
+   currentMap = Integer.parseInt(data[0]);
+   p.playerX = Float.parseFloat(data[1]);
+   p.playerY = Float.parseFloat(data[2]);
+   
+   p.respawnY = p.playerY;
+   p.respawnX = p.playerX;
+   
+   if (currentMap == 5)
+      {
+        scrollXDist = 500;
+        scrollYDist = 300;
+      }
+   
+  }
+  catch(Exception e)
+  {
+  println("error while loading");
+  }
 }
