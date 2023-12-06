@@ -96,6 +96,8 @@ class Map
         {
            p.checkCollision(blocks[i][j]); 
         }
+        try
+        {
         if(blocks[int(p.playerX/blocks[i][j].size)][int(p.playerY/blocks[i][j].size)+1].pathable 
         && blocks[int(p.left()/blocks[i][j].size)][int(p.playerY/blocks[i][j].size)+1].pathable 
         && blocks[int(p.right()/blocks[i][j].size)][int(p.playerY/blocks[i][j].size)+1].pathable
@@ -103,6 +105,11 @@ class Map
         {
           p.onGround = false;
           
+        }
+        }
+        catch(Exception E)
+        {
+         p.checkForDeath(true); 
         }
         
         try

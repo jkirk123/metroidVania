@@ -40,6 +40,7 @@ class Shot
       
       //fill(0,80);
       //noStroke();
+     
       image(eyeShot,xPos-25+xOffset,yPos-25+yOffset);
       
       if(millis() > timer)

@@ -8,15 +8,15 @@ class Block
   float size;
   boolean pathable;
   boolean background;
-  boolean seen = false;
-  boolean Glow = false;
+  boolean shooting;
+  
   
   int brightness;
   //badguy data
-  int cooldown=0;
+  int cooldown=00;
   int map;
   int range = 500;
-  int waitTime = 000;
+  int waitTime = 2000;
   int shotSpeed = 2;
   int shotDur= 10;
   
@@ -28,7 +28,7 @@ class Block
     size = blockSize;
      map = m;
     pathable = true;
-    Glow = false;
+    
     type = setType(t);
     brightness = 0;
     
@@ -36,8 +36,12 @@ class Block
   
   void tryToShoot()
    {
-     waitTime = p.deathCount * 500;
+     //waitTime = p.deathCount * 500;
      //timer distance map
+     if(cooldown > millis() + (waitTime)/2)
+     {
+     shooting = false;
+     }
      if(currentMap == map && dist(blockX,blockY,p.playerX,p.playerY) < range && millis() > cooldown)
      {
        cooldown = millis() + waitTime;
@@ -58,11 +62,11 @@ class Block
       case 'D': return BlockType.DOOR;
       case 'F': return BlockType.FROGSTATUE;
       case 'L': return BlockType.LADDER;
-      case '!': Glow = true; return BlockType.LANTERN;
+      case '!':  return BlockType.LANTERN;
       case 'T': return BlockType.TREE;
       case '.': return BlockType.HOLE;
       case '^': return BlockType.SPIKE;
-      case 'X': Glow = true; return BlockType.FIRE;
+      case 'X':  return BlockType.FIRE;
       case 'B': return BlockType.BadGuy;
       default: return BlockType.NONE;
     }
@@ -104,8 +108,16 @@ class Block
   {
     float X = blockX+ xOffset;
     float Y = blockY+ yOffset;
+    
+    if(brightness > scrollXDist/blockSize)
+    {
+      return;
+    }
     if(type == BlockType.BadGuy)
+    {
+    shooting = true;
     tryToShoot();
+    }
     
     for(Portal p: doors)
     {
@@ -116,10 +128,7 @@ class Block
       return;
       }
     }
-    if(brightness > scrollXDist/blockSize)
-    {
-      return;
-    }
+    
     
     
     
@@ -189,7 +198,10 @@ class Block
     }
     if(type == BlockType.BadGuy)
     {
+    if(!shooting)
     image(badGuy,X,Y);
+    if(shooting)
+    image(openBadGuy,X,Y);
     }
 
   }

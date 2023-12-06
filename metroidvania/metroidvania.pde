@@ -16,6 +16,7 @@ PImage blockILANTERN;
 PImage blockITREE;
 PImage blockINone;
 PImage badGuy;
+PImage openBadGuy;
 
 PImage blockISPIKE;
 PImage blockIFIRE;
@@ -80,10 +81,10 @@ void setup()
   
   eyeShot = loadImage("eyeShot.png");
 
-  blockI = loadImage("block.PNG");
+  blockI = loadImage("block.png");
   blockI.resize(int(blockSize), 0);
 
-  blockI2 = loadImage("block2.PNG");
+  blockI2 = loadImage("BrokenWall-1.png.png");
   blockI2.resize(int(blockSize), 0);
 
   blockI3 = loadImage("skeletonPile-1.png (1).png");
@@ -112,6 +113,9 @@ void setup()
 
   badGuy = loadImage("closed eye-1.png (1).png");
   badGuy.resize(int(blockSize), 0);
+  
+  openBadGuy = loadImage("open eye.png");
+  openBadGuy.resize(int(blockSize), 0);
 
   blockISPIKE = loadImage("FloorSpike-1.png.png");
   blockISPIKE.resize(int(blockSize), 0);
@@ -266,6 +270,10 @@ void keyPressed()
   {
     useDoor();
   }
+  if (key == '`')
+  {
+    print(0/0);
+  }
 
 
   if (key == 'r')
@@ -297,6 +305,7 @@ PrintWriter pw = createWriter( "save.txt");
 pw.println(currentMap);
 pw.println(p.playerX);
 pw.println(p.playerY);
+pw.println(p.keyChain);
 
 
 pw.flush();
@@ -317,11 +326,12 @@ void loadGame()
    currentMap = Integer.parseInt(data[0]);
    p.playerX = Float.parseFloat(data[1]);
    p.playerY = Float.parseFloat(data[2]);
+   p.keyChain = Integer.parseInt(data[3]);
    
-   p.respawnY = p.playerY;
-   p.respawnX = p.playerX;
+   //p.respawnY = p.playerY;
+   //p.respawnX = p.playerX;
    
-   if (currentMap == 5)
+   if (currentMap >= 5)
       {
         scrollXDist = 500;
         scrollYDist = 300;

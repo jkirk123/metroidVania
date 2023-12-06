@@ -233,6 +233,12 @@ class Player
 
   void speed(float change) //enforces max speed
   {
+    if(currentMap == 6)
+    {
+    xSpd += change;
+    return;
+    }
+    
     if (change > 0 && xSpd < maxSpeed && onGround|| change < 0 && xSpd > (maxSpeed * -1) && onGround)
       xSpd = change;
     else if (change > 0 && xSpd < maxSpeed || change < 0 && xSpd > (maxSpeed * -1) )
